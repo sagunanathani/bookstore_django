@@ -1,0 +1,15 @@
+# Text backup files
+*.bak
+
+# Database files
+*.sqlite3
+
+# Python cache
+*.pyc
+__pycache__/
+
+# Logs
+*.log
+
+# Django settings (contains SECRET_KEY)
+settings.py
