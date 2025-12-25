@@ -12,4 +12,4 @@ __pycache__/
 *.log
 
 # Django settings (contains SECRET_KEY)
-settings.py
+bookstore_django/settings.py

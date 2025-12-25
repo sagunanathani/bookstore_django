@@ -1,39 +1,55 @@
+{% extends 'base.html' %}
 {% load static %}
-<head> 
-   <link rel="stylesheet" href="static/style.css"> 
-   <script src="{% static 'sales/home.js' %}" defer></script>
-</head>
 
-<!DOCTYPE html>
-<html lang="en">
-    <title>Bookstore's Home</title>
-    <style>
-      .hero-img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
-    </style>
-  
-  <body>
-    <div class="container">
-      <h1 style="text-align:center">Welcome to our Bookstore</h1>
-      <br>
-        <br>
-        <a href="{% url 'sales:home' %}">Home</a> |
-        <a href="{% url 'sales:records' %}">Records</a> |
-        <a href="{% url 'books:book_list' %}">Books</a> |
-        <a href ="{%url 'login' %}">  Login  </a> |
-        <a href="{% url 'logout' %}">Logout</a>
-        <br>
-        <br>
-        <br>
-      <img
-        src="{% static 'sales/images/bookstore.jpg' %}"
-        alt="home"
-        class="hero-img"
-      />
+{% block title %}Bookstore Home{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'home.css' %}">
+<link rel="stylesheet" href="{% static 'base.css' %}">
+
+<script src="{% static 'sales/home.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+<h1>Welcome to our Bookstore</h1>
+
+<div class="image-slider">
+    <div class="slide">
+        <img src="{% static 'sales/images/bookstore.jpg' %}" alt="Bookstore 1">
     </div>
-  </body>
-</html>
+
+    <div class="slide">
+        <img src="{% static 'sales/images/bookstore1.jpg' %}" alt="Bookstore Img">
+    </div>
+
+    <div class="slide">
+        <img src="{% static 'sales/images/bookstore2.jpg' %}" alt="Bookstore Img">
+    </div>
+
+    <div class="slide">
+        <img src="{% static 'sales/images/bookstore3.jpg' %}" alt="Bookstore Img">
+    </div>
+
+    <div class="slide">
+        <img src="{% static 'sales/images/bookstore4.jpg' %}" alt="Bookstore Img">
+    </div>
+
+    <div class="slide">
+        <img src="{% static 'sales/images/bookstore5.jpg' %}" alt="Bookstore Img">
+    </div>
+
+    <div class="slide">
+        <img src="{% static 'sales/images/bookstore6.jpg' %}" alt="Bookstore Img">
+    </div>
+
+    <div class="slide">
+        <img src="{% static 'sales/images/bookstore7.jpg' %}" alt="Bookstore Img">
+    </div>
+
+    <div class="slide">
+        <img src="{% static 'sales/images/bookstore8.jpg' %}" alt="Bookstore Img">
+    </div>
+
+</div>
+{% endblock %}

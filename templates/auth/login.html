@@ -1,18 +1,39 @@
-<h1>Login</h1>          {% comment %} print heading {% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-{% comment %} check for error message {% endcomment %}
-{% if error_message %}
-   {{error_message}}
-{% endif %}
+    <title>Login</title>
 
-{% comment %} print form {% endcomment %}
-<form action="" method="POST" >
-   {% comment %} add Django security token {% endcomment %}
-   {% csrf_token %}   
+    <!-- Link your login.css file -->
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
 
-   {% comment %} print form received from view  {% endcomment %}
-   {{form}}           
+<body>
 
-   {% comment %} add button {% endcomment %}
-   <button type="submit" >Login</button>
-</form>
+<div class="login-box">
+
+    <h1>Login</h1>
+
+    {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- Add this section -->
+    <p class="register-link">
+        Don’t have an account?
+        <a href="{% url 'register' %}">Register here</a>
+    </p>
+
+</div>
+
+</body>
+</html>

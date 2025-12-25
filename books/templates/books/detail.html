@@ -1,23 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{{ book.name }} Details</title>
-  </head>
-  <body>
-    <h2>Details: {{ book.name }}</h2>
+{% extends 'base.html' %}
+{% load static %}
 
-    <b>Title:</b> {{ book.name }} <br />
-    <b>Author:</b> {{ book.author_name }} <br />
-    <b>Genre:</b> {{ book.genre }} <br />
-    <b>Book Type:</b> {{ book.book_type }} <br />
-    <b>Price:</b> ${{ book.price }} <br />
+{% block title %}{{ book.name }} Details{% endblock %}
 
-    <img
-      src="{{ book.pic.url }}"
-      width="200"
-      height="300"
-      alt="{{ book.name }}"
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h2>{{ book.name }} — Details</h2>
+
+<div class="details-wrapper">
+
+    <!-- LEFT SIDE DETAILS -->
+    <div class="details-box">
+        <p><b>Title:</b> {{ book.name }}</p>
+        <p><b>Author:</b> {{ book.author_name }}</p>
+        <p><b>Genre:</b> {{ book.genre }}</p>
+        <p><b>Book Type:</b> {{ book.book_type }}</p>
+        <p><b>Notes:</b> {{ book.notes }}</p>
+        <p><b>Price:</b> ${{ book.price }}</p>
+    </div>
+
+    <!-- RIGHT SIDE IMAGE -->
+    <img 
+        src="{{ book.pic.url }}" 
+        alt="{{ book.name }}" 
+        class="book-img"
     />
-  </body>
-</html>
+
+</div>
+
+<a href="{% url 'books:book_list' %}" class="back-link">Back to Books</a>
+
+{% endblock %}

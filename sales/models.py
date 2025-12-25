@@ -15,6 +15,6 @@ class Sale(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, help_text="Date of sale (auto-set)")
 
     def __str__(self):
-        return f"Sale of {self.quantity} x {self.book.name} on {self.date_create.strftime('%Y-%m-%d')}"
+        return f"Sale of {self.quantity} x {self.book.name} on {self.date_created.strftime('%Y-%m-%d')}"
     
 

@@ -1,16 +1,36 @@
-<h1> Search for sales records</h1>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search Sales Records{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'records.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Search for Sales Records</h1>
 <hr>
+
+<!-- SEARCH FORM -->
 <form action="" method="POST">
-   {% csrf_token %}
-   {{form}}
-   <button type="submit" >search</button>
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Search</button>
 </form>
 
-<br>
-
+<!-- RESULTS -->
 {% if sales_df %}
-   {{sales_df|safe}}
-   <img src="data:image/png;base64, {{chart|safe}}">
+    {{ sales_df|safe }}
+
+    <img 
+        src="data:image/png;base64,{{ chart|safe }}" 
+        alt="Sales Chart" 
+        class="chart"
+    >
 {% else %}
-   <h3> no data</h3>
+    <h3 class="no-data">No data found</h3>
 {% endif %}
+
+{% endblock %}
