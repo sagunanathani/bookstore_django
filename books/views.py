@@ -8,3 +8,4 @@ def book_list(request):
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
     return render(request, 'books/detail.html', {'book': book})
+

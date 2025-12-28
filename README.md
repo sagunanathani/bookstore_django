@@ -1,31 +1,33 @@
-# 📚 Bookstore Django Project
-
-A full‑stack Django web application for managing books, sales records, and user authentication.  
+📚 Bookstore Django Project
+A full‑stack Django web application for managing books, sales records, and user authentication.
 This project includes login, registration, CRUD operations, data visualization, and a responsive UI.
+
 
 ---
 
-## 🚀 Features
-
+🚀 Features
 - User authentication (Login, Logout, Register)
 - Books management (list, details, CRUD)
 - Sales records with Pandas DataFrame display
 - Auto‑generated charts using Matplotlib
 - Responsive homepage with image slider
-- Modular templates using `base.html`
+- Modular templates using base.html
 - Static files (CSS, JS, images) included
-- Uses **SQLite** (default Django database)
+- SQLite for local development
+- PostgreSQL for production (Railway)
+
 
 ---
 
-## 🛠️ Tech Stack
+🛠️ Tech Stack
+- Python 3
+- Django 5
+- SQLite (local)
+- PostgreSQL (Railway)
+- Pandas
+- Matplotlib
+- Railway.app (Deployment)
 
-- **Python 3**
-- **Django 5**
-- **SQLite** (default)
-- **Pandas**
-- **Matplotlib**
-- **Railway.app** (Deployment)
 
 ---
 
@@ -61,26 +63,79 @@ This project includes login, registration, CRUD operations, data visualization, 
     - Go to https://railway.app
     - Click New Project → Deploy from GitHub Repo
 
-3. Add environment variables
+3. Add a PostgreSQL database
+    Railway automatically generates:
+        PGHOST
+        PGDATABASE
+        PGUSER
+        PGPASSWORD
+        PGPORT
+
+4. Add environment variables
     In Railway → Variables:
     DJANGO_SECRET_KEY=your-secret-key
     DEBUG=False
+    PGHOST=...
+    PGDATABASE=...
+    PGUSER=...
+    PGPASSWORD=...
+    PGPORT=...
 
-4. Update Django settings
+5. Update Django settings for PostgreSQL
+    import os
+
+    if os.environ.get("RAILWAY_ENVIRONMENT"):
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'HOST': os.environ.get('PGHOST'),
+                'NAME': os.environ.get('PGDATABASE'),
+                'USER': os.environ.get('PGUSER'),
+                'PASSWORD': os.environ.get('PGPASSWORD'),
+                'PORT': os.environ.get('PGPORT'),
+            }
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
+
+6. Static files for production
     STATIC_URL = '/static/'
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     ALLOWED_HOSTS = ['*']
 
-    No database changes needed — SQLite works automatically.
-
-5. Add Procfile
+7. Add Procfile
     web: gunicorn bookstore_django.wsgi
 
-6. Collect static files
+8. Collect static files
     python manage.py collectstatic --noinput
 
-7. Redeploy
+9. Redeploy
     Railway will build and deploy automatically.
+
+🔐 Creating a Superuser on Railway (No Shell Needed)
+    Railway Starter plan does not provide a shell.
+    So this project includes a custom management command:
+    python manage.py createadmin
+
+Add these variables in Railway:
+    DJANGO_SUPERUSER_USERNAME=sagunanathani
+    DJANGO_SUPERUSER_EMAIL=admin@example.com
+    DJANGO_SUPERUSER_PASSWORD=yourpassword
+
+To create a superuser:
+- Go to Railway → Web Service → Settings
+- Temporarily change Start Command to:
+    python manage.py createadmin
+
+- Deploy
+- Change Start Command back to:
+option 1: python manage.py migrate
+option 2: python manage.py migrate && gunicorn bookstore_django.wsgi
 
 📊 Data & Charts
     Sales data is displayed using:

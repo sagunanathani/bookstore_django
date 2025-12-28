@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from cloudinary.models import CloudinaryField
 
 # Choices
 genre_choices = (
@@ -11,7 +12,7 @@ genre_choices = (
     ('educational', 'Educational'),
 )
 
-book_type_choices = (
+book_type_choices = ( 
     ('hardcover', 'Hard cover'),
     ('ebook', 'E-Book'),
     ('audiobook', 'Audiobook'),
@@ -24,7 +25,7 @@ class Book(models.Model):
     genre = models.CharField(max_length=12, choices=genre_choices, default='classic')
     book_type = models.CharField(max_length=12, choices=book_type_choices, default='hardcover')
     notes = models.TextField(default="no notes...")
-    pic = models.ImageField(upload_to='books/images', blank=True, null=True)
+    pic = CloudinaryField('image', blank=True, null=True)
 
     def __str__(self):
         return str(self.name)
